@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autogen.dao.Mapper.UserInfoMapper">
+    <select id="selectUserPage" resultType="com.autogen.dao.entity.SelectUserPage">
+        select any_value(user_info.id) as id,user_name,any_value(login_name) as login_name, any_value(teacher) as teacher,
+               any_value(authority) as authority,count(xmmc) as count
+        from user_info left join basic_information
+            on user_name = cjr
+        <where>
+            <if test="user_name !=null and user_name !='' ">
+                or user_name like CONCAT('%',#{user_name},'%')
+            </if>
+        </where>
+        group by user_name
+    </select>
+
+
+    <select id="groupCount" resultType="com.autogen.dao.entity.SelectUserPage">
+        select zdls as teacher,count(xmmc) as count
+        from  basic_information
+        group by zdls
+    </select>
+</mapper>
