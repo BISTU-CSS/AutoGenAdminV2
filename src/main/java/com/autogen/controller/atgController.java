@@ -82,10 +82,9 @@ public class atgController {
         service1.generate(questionNaire);
         // 先用service生成到example文件中，然后再读取example文件返回
 
-//        FileSystemResource file = new FileSystemResource("/home/ubuntu/fangan/autogen/example.docx");
 //        FileSystemResource file = new FileSystemResource("/home/ubuntu/Desktop/code_package/complete_example.docx");
 //        FileSystemResource file = new FileSystemResource("D:\\桌面\\auto\\AutoGen\\example.docx");
-        FileSystemResource file = new FileSystemResource("E:\\IdeaProjects\\AutoGen-master\\example.docx");
+        FileSystemResource file = new FileSystemResource("example.docx");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         //这里定制下载文件的名称
@@ -105,10 +104,7 @@ public class atgController {
         QuestionNaire questionNaire = new QuestionNaire();
         MyJSON.parsingJSON(data,questionNaire);
         informationService.exportSBQD(questionNaire.getSbqd(),questionNaire.getSys_name());
-//        FileSystemResource file = new FileSystemResource("/home/ubuntu/fangan/autogen/files/sbqd.xlsx");
-//        FileSystemResource file = new FileSystemResource("/home/ubuntu/Desktop/code_package/sbqd.xlsx");
-//        FileSystemResource file = new FileSystemResource("D:\\桌面\\auto\\AutoGen\\sbqd.xlsx");
-        FileSystemResource file = new FileSystemResource("E:\\IdeaProjects\\AutoGen-master\\sbqd.xlsx");
+        FileSystemResource file = new FileSystemResource("sbqd.xlsx");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         //这里定制下载文件的名称
@@ -214,9 +210,7 @@ public class atgController {
         //生成excel的方法，默认放在这里：ReplaceData.xlsx
         servicePF.genExcel(wlhhj,wlhtx,sbhjs,yyhsj,dbjb);
         //将这个文件上传回二进制流
-        FileSystemResource file = new FileSystemResource("E:\\IdeaProjects\\AutoGen-master\\pingfen.xlsx");
-//        FileSystemResource file = new FileSystemResource("D:\\桌面\\auto\\AutoGen\\pingfen.xlsx");
-//        FileSystemResource file = new FileSystemResource("/home/ubuntu/fangan/autogen/files/pingfen.xlsx");
+        FileSystemResource file = new FileSystemResource("pingfen.xlsx");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         //这里定制下载文件的名称
