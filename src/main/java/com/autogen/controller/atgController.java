@@ -6,12 +6,9 @@ import com.autogen.dao.entity.pf._1_WLHHJAQ;
 import com.autogen.dao.entity.pf._2_WLHTXAQ;
 import com.autogen.dao.entity.pf._3_SBHJSAQ;
 import com.autogen.dao.entity.pf._4_YYHSJAQ;
-import com.autogen.service.FileService;
-import com.autogen.service.ServicePF;
+import com.autogen.service.*;
 import com.autogen.util.FileUtil;
 import com.autogen.util.JsonResult;
-import com.autogen.service.InformationService;
-import com.autogen.service.Service1;
 import com.autogen.util.Convert;
 import com.autogen.util.MyJSON;
 import com.spire.xls.Workbook;
@@ -84,7 +81,9 @@ public class atgController {
 
 //        FileSystemResource file = new FileSystemResource("/home/ubuntu/Desktop/code_package/complete_example.docx");
 //        FileSystemResource file = new FileSystemResource("D:\\桌面\\auto\\AutoGen\\example.docx");
-        FileSystemResource file = new FileSystemResource("example.docx");
+//        FileSystemResource file = new FileSystemResource("/home/ubuntu/fangan/autogen/example.docx");
+        String result = new File(Service1Impl.class.getClassLoader().getResource("WordTemplate").toURI()).getParent() + "\\";
+        FileSystemResource file = new FileSystemResource(result + "example.docx");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         //这里定制下载文件的名称
@@ -104,7 +103,8 @@ public class atgController {
         QuestionNaire questionNaire = new QuestionNaire();
         MyJSON.parsingJSON(data,questionNaire);
         informationService.exportSBQD(questionNaire.getSbqd(),questionNaire.getSys_name());
-        FileSystemResource file = new FileSystemResource("sbqd.xlsx");
+        String result = new File(Service1Impl.class.getClassLoader().getResource("WordTemplate").toURI()).getParent() + "\\";
+        FileSystemResource file = new FileSystemResource(result + "sbqd.xlsx");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         //这里定制下载文件的名称
@@ -210,7 +210,8 @@ public class atgController {
         //生成excel的方法，默认放在这里：ReplaceData.xlsx
         servicePF.genExcel(wlhhj,wlhtx,sbhjs,yyhsj,dbjb);
         //将这个文件上传回二进制流
-        FileSystemResource file = new FileSystemResource("pingfen.xlsx");
+        String result = new File(Service1Impl.class.getClassLoader().getResource("WordTemplate").toURI()).getParent() + "\\";
+        FileSystemResource file = new FileSystemResource(result + "pingfen.xlsx");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         //这里定制下载文件的名称
@@ -307,7 +308,7 @@ public class atgController {
             folder.mkdirs();
         }
         String oldname = m.getOriginalFilename();
-        String newname = "genExcel.xlsx";
+        String newname = "/home/ubuntu/autoGen/genExcel.xlsx";
         System.out.println(realPath+newname);
         //将multipartfile转为excel文件
         m.transferTo(new File(folder, newname));

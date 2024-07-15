@@ -15,6 +15,7 @@ import com.autogen.dao.entity.pf._1_WLHHJAQ;
 import com.autogen.dao.entity.pf._2_WLHTXAQ;
 import com.autogen.dao.entity.pf._3_SBHJSAQ;
 import com.autogen.dao.entity.pf._4_YYHSJAQ;
+import com.autogen.service.atgInterface.AutoGeneratorImpl;
 import com.autogen.util.Convert;
 import com.autogen.util.ExcelInfoUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -26,6 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -121,7 +124,16 @@ public class ServicePFImpl implements ServicePF{
     public void genExcel(List<_1_WLHHJAQ> wlhhj, List<_2_WLHTXAQ> wlhtx, List<_3_SBHJSAQ> sbhjs, List<_4_YYHSJAQ> yyhsj,String dbjb) {
         //1.获取文件中的相关信息
         Workbook workbook = new Workbook();
-        workbook.loadFromFile("./src/main/resources/MergeCells.xlsx");
+
+        String result = null;
+        ClassLoader classLoader = AutoGeneratorImpl.class.getClassLoader();
+        URL resourceURL = classLoader.getResource("WordTemplate");
+        try {
+            result = new File(resourceURL.toURI()).getParent() + "\\";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        workbook.loadFromFile(result + "MergeCells.xlsx");
         Worksheet worksheet = workbook.getWorksheets().get(0);
         //设置等保级别
         if (dbjb.equals("0")){

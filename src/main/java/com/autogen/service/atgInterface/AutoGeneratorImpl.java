@@ -18,7 +18,10 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +29,19 @@ import java.util.List;
 @Service
 public class AutoGeneratorImpl implements AutoGenerator {
 
-    private String path = "src\\main\\resources\\WordTemplate\\";
+    private static final String path;
 
-
+    static {
+        String tempBaseURL = null;
+        ClassLoader classLoader = AutoGeneratorImpl.class.getClassLoader();
+        URL resourceURL = classLoader.getResource("WordTemplate");
+        try {
+            tempBaseURL = new File(resourceURL.toURI()).getPath();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        path = tempBaseURL+"\\";
+    }
 
     @Override
     public XWPFDocument chapter_one_generator(Chaptre1input input) throws IOException {

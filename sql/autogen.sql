@@ -13,6 +13,9 @@
 
  Date: 05/07/2024 14:16:34
 */
+CREATE DATABASE IF NOT EXISTS autogen;
+USE autogen;
+
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -267,13 +268,18 @@ public class Service1Impl implements Service1 {
         XWPFDocument doc5 = autoGenerator.chapter_five_generator(getC5(),questionNaire);
         XWPFDocument doc6 = autoGenerator.chapter_six_generator(getC6());
         XWPFDocument doc7 = autoGenerator.chapter_seven_generator(getC7());
-        XWPFDocument doc8 = IOManager.readFile("src\\main\\resources\\WordTemplate\\8.docx").getXWPFDocument();
+//        XWPFDocument doc8 = IOManager.readFile("src\\main\\resources\\WordTemplate\\8.docx").getXWPFDocument();
+        String s = new File(Service1Impl.class.getClassLoader().getResource("WordTemplate").toURI()).getPath() + "\\";
+//        XWPFDocument doc8 = IOManager.readFile("/home/ubuntu/fangan/autogen/filetemplate/8.docx").getXWPFDocument();
+        XWPFDocument doc8 = IOManager.readFile(s+"8.docx").getXWPFDocument();
 //        XWPFDocument doc8 = autoGenerator.chapter_eight_generator(getC8());
         NiceXWPFDocument completeDoc = IOManager.mergeFile((NiceXWPFDocument) doc1, (NiceXWPFDocument) doc2,
                 (NiceXWPFDocument) doc3, (NiceXWPFDocument) doc4, (NiceXWPFDocument) doc5,
                 (NiceXWPFDocument) doc6, (NiceXWPFDocument) doc7,(NiceXWPFDocument) doc8);
 //        IOManager.writeFile(completeDoc, "/home/ubuntu/Desktop/code_package/complete_example.docx");
-        IOManager.writeFile(completeDoc, "example.docx");
+//        IOManager.writeFile(completeDoc, "/home/ubuntu/fangan/autogen/example.docx");
+        String result = new File(Service1Impl.class.getClassLoader().getResource("WordTemplate").toURI()).getParent() + "\\";
+        IOManager.writeFile(completeDoc, result + "example.docx");
     }
 
     @Override
